@@ -1,0 +1,144 @@
+[1m[37mThe script output will be logged to file: [32m"/home/haohao_test/Dev-Begin/dev-begin.log"[37m.[0m
+[1m[36mDo you wish to set the source of package managers [34m(APT)[36m to the open source mirrors ? [37m[y/N]: [0m[1m[4m[36mRun existing script [32m"/home/haohao_test/Dev-Begin/begin_ubuntu.sh"[24m[0m
+ 
+[1m[4m[36mChecking sudo access (press [33mCtrl+C[36m to run as normal user).[24m[0m
+[1m[37m$ [32m/usr/bin/sudo[37m [33m-v[37m [31m&&[37m [32m/usr/bin/sudo[37m [33m-l[37m [37mmkdir[37m [31m&>/dev/null[37m[0m
+[1m[33msudo access available.[0m
+ 
+[1m[4m[36mNOPASSWD for [31mhaohao_test[36m...[0m
+[1m[33mUser [31mhaohao_test[33m is already in sudoers.[0m
+ 
+[1m[34mAdd PPA:[0m
+[1m[37m$ [4m[32msudo[24m[37m [32madd-apt-repository[37m [37mppa:daniel-milde/gdu[37m [33m--yes[37m[0m
+[1m[33mAdd gdu PPA success[0m
+[1m[37m$ [4m[32msudo[24m[37m [32madd-apt-repository[37m [37mppa:neovim-ppa/unstable[37m [33m--yes[37m[0m
+[1m[33mAdd neovim PPA success[0m
+ 
+[1m[4m[36mUpdate && Upgrade Packages[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37mupdate[37m [33m--yes[37m[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37mupgrade[37m [33m--yes[37m[0m
+[1m[33mUpdate && Upgrade Packages success[0m
+ 
+[1m[4m[36mInstall APT tools[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37msoftware-properties-common,[37m [37mapt-transport-https[37m [33m--yes[37m[0m
+E: 无法定位软件包 software-properties-common,
+[1m[33mInstall APT tools success[0m
+ 
+[1m[4m[36mInstall Shell Packages[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mzsh[37m [33m--yes[37m[0m
+[1m[33mInstall Shell Packages success[0m
+[1m[4m[34mzsh already in /etc/shells[0m
+ 
+[1m[4m[36mInstall Git Packages[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mgit[37m [37mgit-lfs[37m [37mgit-extras[37m [33m--yes[37m[0m
+[1m[33mInstall Git Packages success[0m
+ 
+[1m[4m[36mInstall Compress Packages[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mtar[37m [37mgzip[37m [37munzip[37m [37matools[37m [33m--yes[37m[0m
+E: 无法定位软件包 atools
+[1m[33mInstall Compress Packages success[0m
+ 
+[1m[4m[36mInstall File and Net Packages[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mcurl[37m [37mwget[37m [37mhttpie[37m [37mrsync[37m [37mtree[37m [37mcolordiff[37m [37mxclip[37m [37mxsel[37m [37mnet-tools[37m [33m--yes[37m[0m
+[1m[33mInstall File and Net Packages success[0m
+ 
+[1m[4m[36mInstall Searching Tools[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mfzf[37m [37mgawk[37m [37mripgrep[37m [37mautojump[37m [33m--yes[37m[0m
+[1m[33mSearching Tools install success[0m
+ 
+[1m[4m[36mInstall tmux[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mtmux[37m [33m--yes[37m[0m
+[1m[33mTmux install success[0m
+ 
+[1m[4m[36mInstall query Tools[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mtldr[37m [37mthefuck[37m [33m--yes[37m[0m
+[1m[33mQuery Tools install success[0m
+ 
+[1m[4m[36mInstall DevTools Packages[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mbuild-essential[37m [37mlibboost-all-dev[37m [37mmake[37m [37mcamke[37m [37mautomake[37m [37mautoconf[37m [37mgcc[37m [37mg++[37m [37mgdb[37m [33m--yes[37m[0m
+E: 无法定位软件包 camke
+[1m[33mDevTools Packages install success[0m
+ 
+[1m[4m[36mInstall Top Tools[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mhtop[37m [37mgpustat[37m [33m--yes[37m[0m
+[1m[33mTop Tools install success[0m
+ 
+[1m[4m[36mInstall SSH Tools[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mssh[37m [37mopenssh-server[37m [37mfail2ban[37m [33m--yes[37m[0m
+[1m[33mSSH Tools install success[0m
+ 
+[1m[4m[36mInstall NVME Tools[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37msmartmontools[37m [33m--yes[37m[0m
+[1m[33mNVME Tools install succes[0m
+ 
+[1m[4m[36mInstall gdu & ncdu [0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mgdu[37m [37mncdu[37m [33m--yes[37m[0m
+[1m[33mgdu & ncdu install success[0m
+ 
+[1m[4m[36mInstall neovim[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37minstall[37m [37mneovim[37m [33m--yes[37m[0m
+[1m[33mneovim install success[0m
+ 
+[1m[4m[36mInstall fd[0m
+[1m[31mfd is already installed[0m
+ 
+[1m[4m[36mInstall bat[0m
+[1m[31mbat is already installed[0m
+ 
+[1m[4m[36mInstall exa[0m
+[1m[31mexa is already installed[0m
+ 
+[1m[4m[36mInstall duf[0m
+[1m[31mduf is already installed[0m
+ 
+[1m[4m[36mInstall btop[0m
+[1m[37m$ [4m[32msudo[24m[37m [32msnap[37m [37mrefresh[37m [37mbtop[37m[0m
+snap "btop" has no updates available
+[1m[31mbtop is already installed[0m
+ 
+[4m[36mInstall Nvidia Driver[0m
+[1m[34mDo you wish to install Nvidia Driver? [31m[y/N]: [0m[1m[31mNvidia Driver will not be installed[0m
+ 
+[4m[36mInstall CUDA & CUDNN[0m
+[1m[34mDo you wish to install Nvidia CUDA Toolkit 11+ and CUDNN 8.4+ ? [31m[y/N]: [0m[1m[31mNvidia CUDA Toolkit and CUDNN will not be installed[0m
+ 
+[4m[36mInstall nodejs & npm[0m
+[1m[31mnodejs & npm is already installed[0m
+[1m[34mDo you wish to install frpc ? [31m[y/N]: [0m[1m[33mInstalling frpc[0m
+[1m[34mBegin install[0m
+[1m[37m$ [32mwget[37m [33m-t[37m [37m10[37m [33m-T[37m [37m15[37m [33m-N[37m [33m-P[37m "/home/haohao_test/.tmp/dev-begin/" [37mhttps://raw.githubusercontent.com/stilleshan/frpc/master/frpc_linux_install.sh[37m[0m
+frpc_linux_install.   0%[                    ]       0  --.-KB/s               frpc_linux_install. 100%[===================>]   4.35K  --.-KB/s    用时 0s    
+缺少“Last-modified”文件头 -- 关闭时间戳标记。
+2022-04-13 23:14:40 URL:https://raw.githubusercontent.com/stilleshan/frpc/master/frpc_linux_install.sh [4456/4456] -> "/home/haohao_test/.tmp/dev-begin/frpc_linux_install.sh" [1]
+[1m[37m$ [32mchmod[37m [37m+x[37m "/home/haohao_test/.tmp/dev-begin//frpc_linux_install.sh"[0m
+[1m[37m$ [4m[32msudo[24m[37m [32m/usr/bin/bash[37m "/home/haohao_test/.tmp/dev-begin//frpc_linux_install.sh"[0m
+[1m[33mfrpc installed[0m
+[1m[34mDo you wish to install BIT-Login? [31m[y/N]: [0m[1m[33mInstalling BIT-login [0m
+[1m[34mBegin install[0m
+ 
+[4m[36mInstall xrdp[0m
+[1m[34mDo you wish to install xrdp? [31m[y/N]: [0m[1m[33mInstalling xrdp [0m
+[1m[34mBegin install[0m
+[1m[37m$ [32mwget[37m [33m-t[37m [37m10[37m [33m-T[37m [37m15[37m [33m-N[37m [33m-P[37m "/home/haohao_test/.tmp/dev-begin/" [37mhttps://www.c-nergy.be/downloads/xRDP/xrdp-installer-1.3.zip[37m[0m
+无法建立 SSL 连接。
+[1m[37m$ [32munzip[37m [33m-o[37m "/home/haohao_test/.tmp/dev-begin//xrdp-installer-1.3.zip" [33m-d[37m "/home/haohao_test/.tmp/dev-begin/"[0m
+[1m[37m$ [32mchmod[37m [37m+x[37m "/home/haohao_test/.tmp/dev-begin//xrdp-installer-1.3.sh"[0m
+[1m[37m$ [32m/usr/bin/bash[37m "/home/haohao_test/.tmp/dev-begin//xrdp-installer-1.3.sh" [33m-l[37m[0m
+[1m[33mxrdp installed[0m
+ 
+[1m[4m[36mEnabel Service[0m
+[1m[37m$ [4m[32msudo[24m[37m [32msystemctl[37m [37mdaemon-reload[37m[0m
+[1m[34mEnabel ssh service[0m
+[1m[37m$ [4m[32msudo[24m[37m [32msystemctl[37m [37menable[37m [33m--now[37m [37mssh[37m[0m
+Synchronizing state of ssh.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable ssh
+[1m[34mEnabel fail2ban service[0m
+[1m[37m$ [4m[32msudo[24m[37m [32msystemctl[37m [37menable[37m [33m--now[37m [37mfail2ban[37m[0m
+Synchronizing state of fail2ban.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable fail2ban
+ 
+[1m[4m[36mAutoremove & Autoclean[0m
+[1m[37m$ [4m[32msudo[24m[37m [32mapt-get[37m [37mautoremove[37m [33m--purge[37m [33m--yes[37m [31m&&[37m [4m[32msudo[24m[37m [32mapt-get[37m [37mautoclean[37m [33m--yes[37m[0m
+[1m[33mAutoremove & Autoclean success[0m
+/home/haohao_test/Dev-Begin/begin_ubuntu.sh: 行 656: 寻找匹配的“'”时遇到了未预期的文件结束符
+/home/haohao_test/Dev-Begin/begin_ubuntu.sh: 行 662: 语法错误: 未预期的文件结尾

@@ -297,9 +297,11 @@ if have_sudo_access; then
 	echo " " >&2
 	echo -e "${BOLD}${BLUE}Add PPA:${RESET}" >&2
 	# gdu
-	exec_cmd 'sudo add-apt-repositiory ppa:daniel-milde/gdu --yes'
+	exec_cmd 'sudo add-apt-repository ppa:daniel-milde/gdu --yes'
+	echo -e "${BOLD}${YELLOW}Add gdu PPA success${RESET}" >&2
 	# neovim
-	exec_cmd 'sudo add-apt-repositiory ppa:neovim-ppa/unstable'
+	exec_cmd 'sudo add-apt-repository ppa:neovim-ppa/unstable --yes'
+	echo -e "${BOLD}${YELLOW}Add neovim PPA success${RESET}" >&2
 	# vscode
 
 	# * Update && Upgrade
@@ -307,82 +309,100 @@ if have_sudo_access; then
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Update && Upgrade Packages${RESET}" >&2
 	exec_cmd 'sudo apt-get update --yes'
 	exec_cmd 'sudo apt-get upgrade --yes'
+	echo -e "${BOLD}${YELLOW}Update && Upgrade Packages success${RESET}" >&2
 
 	# * APT tools
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install APT tools${RESET}" >&2
 	exec_cmd 'sudo apt-get install software-properties-common, apt-transport-https --yes'
+	echo -e "${BOLD}${YELLOW}Install APT tools success${RESET}" >&2
 
 	# * shell
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install Shell Packages${RESET}" >&2
 	exec_cmd 'sudo apt-get install zsh --yes'
+	echo -e "${BOLD}${YELLOW}Install Shell Packages success${RESET}" >&2
 
+	# * zsh
 	if ! grep -qF '/usr/bin/zsh' /etc/shells; then
 		exec_cmd "echo '/usr/bin/zsh' | sudo tee -a /etc/shells"
+		echo -e "${BOLD}${UNDERLINE}${BLUE}Add zsh to /etc/shells success${RESET}" >&2
+	else
+		echo -e "${BOLD}${UNDERLINE}${BLUE}zsh already in /etc/shells${RESET}" >&2
 	fi
 
 	# * Git
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install Git Packages${RESET}" >&2
 	exec_cmd 'sudo apt-get install git git-lfs git-extras --yes'
+	echo -e "${BOLD}${YELLOW}Install Git Packages success${RESET}" >&2
 
 	# * Compress
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install Compress Packages${RESET}" >&2
-	exec_cmd 'sudo apt-get install tar gzip --yes'
+	exec_cmd 'sudo apt-get install tar gzip unzip atools --yes'
+	echo -e "${BOLD}${YELLOW}Install Compress Packages success${RESET}" >&2
 
 	# * File && Net
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install File and Net Packages${RESET}" >&2
-	exec_cmd 'sudo apt-get install curl wget httpie rsync tree colordiff xclip net-tools --yes'
+	exec_cmd 'sudo apt-get install curl wget httpie rsync tree colordiff xclip xsel net-tools --yes'
+	echo -e "${BOLD}${YELLOW}Install File and Net Packages success${RESET}" >&2
 
 	# * Searching
 	echo " " >&2
-	echo -e "${BOLD}${UNDERLINE}${CYAN}Install Searching Packages${RESET}" >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Install Searching Tools${RESET}" >&2
 	exec_cmd 'sudo apt-get install fzf gawk ripgrep autojump --yes'
+	echo -e "${BOLD}${YELLOW}Searching Tools install success${RESET}" >&2
 
 	# * tmux
 	echo " " >&2
-	echo -e "${BOLD}${UNDERLINE}${CYAN}Install tmux Packages${RESET}" >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Install tmux${RESET}" >&2
 	exec_cmd 'sudo apt-get install tmux --yes'
+	echo -e "${BOLD}${YELLOW}Tmux install success${RESET}" >&2
 
 	# * Query
 	echo " " >&2
-	echo -e "${BOLD}${UNDERLINE}${CYAN}Install query Packages${RESET}" >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Install query Tools${RESET}" >&2
 	exec_cmd 'sudo apt-get install tldr thefuck --yes'
+	echo -e "${BOLD}${YELLOW}Query Tools install success${RESET}" >&2
 
+	# * Top
 	# * DevTools
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install DevTools Packages${RESET}" >&2
 	exec_cmd 'sudo apt-get install build-essential libboost-all-dev make camke automake autoconf gcc g++ gdb --yes'
+	echo -e "${BOLD}${YELLOW}DevTools Packages install success${RESET}" >&2
 
 	# * Top
 	echo " " >&2
-	echo -e "${BOLD}${UNDERLINE}${CYAN}Install Top Packages${RESET}" >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Install Top Tools${RESET}" >&2
 	exec_cmd 'sudo apt-get install htop gpustat --yes'
-	# TODO
+	echo -e "${BOLD}${YELLOW}Top Tools install success${RESET}" >&2
 
 	# * SSH && fail2ban
 	echo " " >&2
-	echo -e "${BOLD}${UNDERLINE}${CYAN}Install SSH Packages${RESET}" >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Install SSH Tools${RESET}" >&2
 	exec_cmd 'sudo apt-get install ssh openssh-server fail2ban --yes'
-	# TODO
+	echo -e "${BOLD}${YELLOW}SSH Tools install success${RESET}" >&2
 
 	# * NVME
 	echo " " >&2
-	echo -e "${BOLD}${UNDERLINE}${CYAN}Install NVME Packages${RESET}" >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Install NVME Tools${RESET}" >&2
 	exec_cmd 'sudo apt-get install smartmontools --yes'
+	echo -e "${BOLD}${YELLOW}NVME Tools install succes${RESET}" >&2
 
 	# * du
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install gdu & ncdu ${RESET}" >&2
 	exec_cmd 'sudo apt-get install gdu ncdu --yes'
+	echo -e "${BOLD}${YELLOW}gdu & ncdu install success${RESET}" >&2
 
 	# * neovim
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install neovim${RESET}" >&2
 	exec_cmd 'sudo apt-get install neovim --yes'
+	echo -e "${BOLD}${YELLOW}neovim install success${RESET}" >&2
 
 	# * fd
 	echo " " >&2
@@ -427,7 +447,6 @@ if have_sudo_access; then
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install duf${RESET}" >&2
 	LATEST_DUF_VERSION="$(get_latest_version "muesli/duf")"
-	echo ${LATEST_DUF_VERSION}
 	if [[ -n "${LATEST_DUF_VERSION}" ]] && ! check_binary duf "${LATEST_DUF_VERSION}"; then
 		exec_cmd "wget -t 3 -T 15 -N -P \"${TMP_DIR}\" https://github.com/muesli/duf/releases/download/${LATEST_DUF_VERSION}/duf_${LATEST_DUF_VERSION#v}_linux_amd64.deb"
 		exec_cmd "sudo dpkg -i \"${TMP_DIR}/duf_${LATEST_DUF_VERSION#v}_linux_amd64.deb\""
@@ -438,55 +457,205 @@ if have_sudo_access; then
 	fi
 
 	# * btop
+	echo " " >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Install btop${RESET}" >&2
+	if (snap list | grep -qiF btop); then
+		exec_cmd 'sudo snap refresh btop'
+		echo -e "${BOLD}${RED}btop is already installed${RESET}" >&2
+	else
+		exec_cmd 'sudo snap install btop --edge'
+		echo -e "${BOLD}${YELLOW}btop installed${RESET}" >&2
+	fi
 
+	# NOTE Install Nvidia Driver
+	echo " " >&2
+	echo -e "${BLOD}${UNDERLINE}${CYAN}Install Nvidia Driver${RESET}" >&2
+	if [ -t 0 ] && [ -t 1 ]; then
+		while true; do
+			read -n 1 -p "$(echo -e "${BOLD}${BLUE}Do you wish to install Nvidia Driver? ${RED}[y/N]: ${RESET}")" answer
+			if [[ -n "${answer}" ]]; then
+				echo
+			else
+				answer="n"
+			fi
+			if [[ "${answer}" == [Yy] ]]; then
+				echo -e "${BOLD}${YELLOW}Installing Nvidia Driver${RESET}" >&2
+				if (ubuntu-drivers devices | grep -q nvidia); then
+					VERSIONS=$(ubuntu-drivers devices | grep -Eo 'nvidia-driver-[0-9]*(-server)?' | sort -r)
+					OLD_IFS="$IFS"
+					IFS='\n'
+					array=("$VERSIONS")
+					IFS="$OLD_IFS"
+					echo -e "${BOLD}${BLUE}Select the Nvidia Driver version you wish to install:${RESET}" >&2
+					PS3="Select Driver :) "
+					select var in ${array[@]}; do
+						if [[ "${array[@]/${var}/}" != "${array[@]}" ]]; then
+							echo -e "${BLOD}${YELLOW}Your choose driver is: $var${RESET}" >&2
+							echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
+							exec_cmd "sudo apt install ${var}"
+							break
+						else
+							echo -e "${BLOD}${RED}Your choose is not exist!${RESET}" >&2
+						fi
+					done
+				fi
+				break
+			elif [[ "${answer}" == [Nn] ]]; then
+				echo -e "${BOLD}${RED}Nvidia Driver will not be installed${RESET}" >&2
+				break
+			fi
+		done
+	fi
 
-	# * install Nvidia Driver
+	# NOTE Install CUDA
+	echo " " >&2
+	echo -e "${BLOD}${UNDERLINE}${CYAN}Install CUDA & CUDNN${RESET}" >&2
+	if [ -t 0 ] && [ -t 1 ]; then
+		while true; do
+			read -n 1 -p "$(echo -e "${BOLD}${BLUE}Do you wish to install Nvidia CUDA Toolkit 11+ and CUDNN 8.4+ ? ${RED}[y/N]: ${RESET}")" answer
+			if [[ -n "${answer}" ]]; then
+				echo
+			else
+				answer="n"
+			fi
+			if [[ "${answer}" == [Yy] ]]; then
+				echo -e "${BOLD}${YELLOW}Installing Nvidia CUDA Toolkit 11+ and CUDNN 8.4+${RESET}" >&2
+				echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
+				exec_cmd "wget -t 10 -T 15 -N -P \"${TMP_DIR}\" https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin"
+				exec_cmd "sudo mv \"${TMP_DIR}/cuda-ubuntu2004.pin\" /etc/apt/preferences.d/cuda-repository-pin-600"
+				exec_cmd 'sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub'
+				exec_cmd 'sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" --yes'
+				exec_cmd 'sudo apt-get install cuda --yes'
+				exec_cmd 'sudo apt-get install libcudnn8 libcudnn8-dev --yes'
+				echo -e "${BOLD}${YELLOW}CUDA & CUDNN installed${RESET}" >&2
+				break
+			elif [[ "${answer}" == [Nn] ]]; then
+				echo -e "${BOLD}${RED}Nvidia CUDA Toolkit and CUDNN will not be installed${RESET}" >&2
+				break
+			fi
+		done
+	fi
 
-	# * install CUDA
+	# NOTE python
+	# NOTE Install Anaconda3
 
-	# * install CUDNN
+	# * nodejs & npm
+	echo " " >&2
+	echo -e "${BLOD}${UNDERLINE}${CYAN}Install nodejs & npm${RESET}" >&2
+	if ! check_binary npm; then
+		exec_cmd 'curl -sL https://deb.nodesource.com/setup_17.x | sudo -E bash -'
+		exec_cmd "sudo apt-get install nodejs --yes"
+		echo -e "${BOLD}${YELLOW}npm installed${RESET}" >&2
+	else
+		echo -e "${BOLD}${RED}nodejs & npm is already installed${RESET}" >&2
+	fi
 
-	# * python
-	# * install Anaconda3
+	# NOTE install frpc
+	echo " " >&2
+	echo -e "${BLOD}${UNDERLINE}${CYAN}Install frpc${RESET}" >&2
+	if [ -t 0 ] && [ -t 1 ]; then
+		while true; do
+			read -n 1 -p "$(echo -e "${BOLD}${BLUE}Do you wish to install frpc ? ${RED}[y/N]: ${RESET}")" answer
+			if [[ -n "${answer}" ]]; then
+				echo
+			else
+				answer="n"
+			fi
+			if [[ "${answer}" == [Yy] ]]; then
+				echo -e "${BOLD}${YELLOW}Installing frpc${RESET}" >&2
+				echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
+				exec_cmd "wget -t 10 -T 15 -N -P \"${TMP_DIR}\" https://raw.githubusercontent.com/stilleshan/frpc/master/frpc_linux_install.sh"
+				exec_cmd "chmod +x \"${TMP_DIR}/frpc_linux_install.sh\""
+				exec_cmd "sudo /usr/bin/bash \"${TMP_DIR}/frpc_linux_install.sh\""
+				echo -e "${BOLD}${YELLOW}frpc installed${RESET}" >&2
+				break
+			elif [[ "${answer}" == [Nn] ]]; then
+				echo -e "${BOLD}${RED}frpc will not be installed${RESET}" >&2
+				break
+			fi
+		done
+	fi
 
-	# * npm
+	# TODO install BIT-LOGIN
+	echo " " >&2
+	echo -e "${BLOD}${UNDERLINE}${CYAN}Install BIT-LOGIN${RESET}" >&2
+	if [ -t 0 ] && [ -t 1 ]; then
+		while true; do
+			read -n 1 -p "$(echo -e "${BOLD}${BLUE}Do you wish to install BIT-Login? ${RED}[y/N]: ${RESET}")" answer
+			if [[ -n "${answer}" ]]; then
+				echo
+			else
+				answer="n"
+			fi
+			if [[ "${answer}" == [Yy] ]]; then
+				echo -e "${BOLD}${YELLOW}Installing BIT-login ${RESET}" >&2
+				echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
+				# TODO
+				break
+			elif [[ "${answer}" == [Nn] ]]; then
+				echo -e "${BOLD}${RED}BIT-Login will not be installed${RESET}" >&2
+				break
+			fi
+		done
+	fi
 
-	# * service
-	# * frpc
+	# NOTE install xrdp
+	echo " " >&2
+	echo -e "${BLOD}${UNDERLINE}${CYAN}Install xrdp${RESET}" >&2
+	if [ -t 0 ] && [ -t 1 ]; then
+		while true; do
+			read -n 1 -p "$(echo -e "${BOLD}${BLUE}Do you wish to install xrdp? ${RED}[y/N]: ${RESET}")" answer
+			if [[ -n "${answer}" ]]; then
+				echo
+			else
+				answer="n"
+			fi
+			if [[ "${answer}" == [Yy] ]]; then
+				echo -e "${BOLD}${YELLOW}Installing xrdp ${RESET}" >&2
+				echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
+				exec_cmd "wget -t 10 -T 15 -N -P \"${TMP_DIR}\" https://www.c-nergy.be/downloads/xRDP/xrdp-installer-1.3.zip"
+				exec_cmd "unzip -o \"${TMP_DIR}/xrdp-installer-1.3.zip\" -d \"${TMP_DIR}\""
+				exec_cmd "chmod +x \"${TMP_DIR}/xrdp-installer-1.3.sh\""
+				exec_cmd "/usr/bin/bash \"${TMP_DIR}/xrdp-installer-1.3.sh\" -l"
+				echo -e "${BOLD}${YELLOW}xrdp installed${RESET}" >&2
+				break
+			elif [[ "${answer}" == [Nn] ]]; then
+				echo -e "${BOLD}${RED}xrdp will not be installed${RESET}" >&2
+				break
+			fi
+		done
+	fi
 
-	# * BIT LOGIN
-
-
-	# * install xrdp
-
-
-	# * Enabel Service
+	# TODO Enabel Service
+	echo " " >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Enabel Service${RESET}" >&2
+	exec_cmd 'sudo systemctl daemon-reload'
 	# * 1. ssh
+	echo -e "${BOLD}${BLUE}Enabel ssh service${RESET}" >&2
+	exec_cmd 'sudo systemctl enable --now ssh'
 
 	# * 2. fail2ban
+	echo -e "${BOLD}${BLUE}Enabel fail2ban service${RESET}" >&2
+	exec_cmd 'sudo systemctl enable --now fail2ban'
 
-	# * 3. xrdp
-
-
-	# * autoremove && autoclean
+	# NOTE autoremove && autoclean
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Autoremove & Autoclean${RESET}" >&2
 	exec_cmd 'sudo apt-get autoremove --purge --yes && sudo apt-get autoclean --yes'
-
+	echo -e "${BOLD}${YELLOW}Autoremove & Autoclean success${RESET}" >&2
 fi
-
 
 # NOTE Change the login shell to zsh
-if [[ "$(basename "${SHELL}")" != "zsh" ]]; then
-	CHSH="chsh"
-	if have_sudo_access; then
-		CHSH="sudo chsh"
-	fi
-	if grep -qF '/usr/bin/zsh' /etc/shells; then
-		exec_cmd "${CHSH} --shell /usr/bin/zsh ${USER}"
-	elif grep -qF '/bin/zsh' /etc/shells; then
-		exec_cmd "${CHSH} --shell /bin/zsh ${USER}"
-	fi
-fi
+# if [[ "$(basename "${SHELL}")" != "zsh" ]]; then
+# 	CHSH="chsh"
+# 	if have_sudo_access; then
+# 		CHSH="sudo chsh"
+# 	fi
+# 	if grep -qF '/usr/bin/zsh' /etc/shells; then
+# 		exec_cmd "${CHSH} --shell /usr/bin/zsh ${USER}"
+# 	elif grep -qF '/bin/zsh' /etc/shells; then
+# 		exec_cmd "${CHSH} --shell /bin/zsh ${USER}"
+# 	fi
+# fi
 
 # TODO Add utility script file
