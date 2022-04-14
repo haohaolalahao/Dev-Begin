@@ -34,8 +34,8 @@ ln -sfn "${DATETIME}" "${HOME}/.dotfiles/backups/latest"
 chmod 755 "${HOME}/.dotfiles"
 
 # * Set temporary directory
-TMP_DIR="$(mktemp -d -t dev-begin.XXXXXX)"
-#TMP_DIR="${HOME}/.tmp/dev-begin/"
+# TMP_DIR="$(mktemp -d -t dev-begin.XXXXXX)"
+TMP_DIR="/tmp/dev-begin.UiZbKf"
 
 if [[ ! -d "${TMP_DIR}" ]]; then
 	mkdir "${TMP_DIR}"
@@ -544,7 +544,7 @@ if have_sudo_access; then
 
 	# NOTE Install Anaconda3
 	echo " " >&2
-	echo -e "${BLOD}${UNDERLINE}${CYAN}Install CUDA & CUDNN${RESET}" >&2
+	echo -e "${BLOD}${UNDERLINE}${CYAN}Install Anaconda3${RESET}" >&2
 	if [ -t 0 ] && [ -t 1 ]; then
 		while true; do
 			read -n 1 -p "$(echo -e "${BOLD}${BLUE}Do you wish to install Anaconda3 ? ${RED}[y/N]: ${RESET}")" answer
@@ -557,10 +557,10 @@ if have_sudo_access; then
 				echo -e "${BOLD}${YELLOW}Installing Anaconda3 ${RESET}" >&2
 				echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
 				exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2021.11-Linux-x86_64.sh"
-				echo -e "${BOLD}${BLUE}For root: recommend /usr/local/anaconda3 For personal: recommend ${HOME}/anaconda3${RESET}"
-				read -p "${BOLD}${YELLOW}Please input anaconda path: ${RESET}" ANACONDA_PATH
-				echo -e "${BOLD}${BLUE}For root: recommend anaconda3 For personal: recommend ${USER}${RESET}"
-				read -p "${BOLD}${YELLOW}Pleae input group name: ${RESET}" GROUP_NAME
+				echo -e "${BOLD}${BLUE}For root: recommend ${RED}/usr/local/anaconda3${BLUE} For personal: recommend ${RED}${HOME}/anaconda3${RESET}"
+				read -p "$(echo -e ${BOLD}${YELLOW}Please input anaconda path: ${RESET})" ANACONDA_PATH
+				echo -e "${BOLD}${BLUE}For root: recommend ${RED}anaconda3${BLUE} For personal: recommend ${RED}${USER}${RESET}"
+				read -p "$(echo -e ${BOLD}${YELLOW}Pleae input group name: ${RESET})" GROUP_NAME
 				exec_cmd "sudo sh ${TMP_DIR}/Anaconda3-2021.11-Linux-x86_64.sh -b -p ${ANACONDA_PATH}"
 				if ${SET_MIRRORS}; then
 					cat <<-EOF | sudo tee ${ANACONDA_PATH}/.condarc
@@ -624,14 +624,14 @@ if have_sudo_access; then
 						  - flake8
 					EOF
 				fi
-				exec_cmd "sudo sh -c \"source ${ANACONDA_PATH}/bin/activate && conda update conda --yes && conda install pip ipython numpy numba matplotlib-base pandas seaborn cython rich tqdm autopep8 pylint black flake8 --yes && conda clean --all --yes\""
-				exec_cmd "sudo grpadd ${GROUP_NAME}"
+				exec_cmd "sudo su -c \"source ${ANACONDA_PATH}/bin/activate && conda update conda --yes && conda install pip ipython numpy numba matplotlib-base pandas seaborn cython rich tqdm autopep8 pylint black flake8 --yes && conda clean --all --yes\""
+				exec_cmd "sudo newgrp ${GROUP_NAME}"
 				exec_cmd "sudo chgrp ${GROUP_NAME} -R ${ANACONDA_PATH}"
 				exec_cmd "sudo chmod 2770 -R ${ANACONDA_PATH}"
 				exec_cmd "sudo chmod g-w ${ANACONDA_PATH}/envs"
-				exec_cmd "sudo sh -c \"source ${ANACONDA_PATH}/bin/activate && conda create -n share python=3.9 --yes && conda activate share && conda install rich --yes\""
-				exec_cmd "sudo chmod 554 -R ${ANACONDA_PATH}/pkgs/cache"
-				echo -e "${BOLD}${YELLOW}Anaconda3 install succes${RESET}" >&2
+				exec_cmd "sudo su -c \"source ${ANACONDA_PATH}/bin/activate && conda create -n share python=3.9 --yes && conda activate share && conda install rich --yes\""
+				exec_cmd "sudo chmod 554 -R ${ANACONDA_PATH}/pkgs/"
+				echo -e "${BOLD}${YELLOW}Anaconda3 install success${RESET}" >&2
 				break
 			elif [[ "${answer}" == [Nn] ]]; then
 				echo -e "${BOLD}${RED}Anaconda3 will not be installed${RESET}" >&2
@@ -694,8 +694,8 @@ if have_sudo_access; then
 				exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://github.com/Mmx233/BitSrunLoginGo/releases/download/${LATEST_LOGIN_VERSION}/autoLogin_linux_amd64.zip"
 				exec_cmd "sudo unzip -o \"${TMP_DIR}/autoLogin_linux_amd64.zip\" -d /usr/local/autologin"
 				exec_cmd "sudo chmod +x /usr/local/autologin/autoLogin"
-				read -p "${BLOD}${RED}Please input your BIT username: ${RESET}" USERNAME
-				read -p "${BLOD}${RED}Please input your BIT password: ${RESEST}" PASSWORD
+				read -p "$(${BLOD}${RED}Please input your BIT username: ${RESET})" USERNAME
+				read -p "$(${BLOD}${RED}Please input your BIT password: ${RESEST})" PASSWORD
 				cat <<-EOF | sudo tee /usr/local/autologin/Config.yaml
 				form:
 				  domain: "10.0.0.55"
