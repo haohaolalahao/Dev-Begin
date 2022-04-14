@@ -775,7 +775,7 @@ if have_sudo_access; then
 		done
 	fi
 
-	# TODO Enabel Service
+	# NOTE Enabel Service
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Enabel Service${RESET}" >&2
 	exec_cmd 'sudo systemctl daemon-reload'
@@ -795,16 +795,15 @@ if have_sudo_access; then
 fi
 
 # NOTE Change the login shell to zsh
-# if [[ "$(basename "${SHELL}")" != "zsh" ]]; then
-# 	CHSH="chsh"
-# 	if have_sudo_access; then
-# 		CHSH="sudo chsh"
-# 	fi
-# 	if grep -qF '/usr/bin/zsh' /etc/shells; then
-# 		exec_cmd "${CHSH} --shell /usr/bin/zsh ${USER}"
-# 	elif grep -qF '/bin/zsh' /etc/shells; then
-# 		exec_cmd "${CHSH} --shell /bin/zsh ${USER}"
-# 	fi
-# fi
+if [[ "$(basename "${SHELL}")" != "zsh" ]]; then
+	CHSH="chsh"
+	if have_sudo_access; then
+		CHSH="sudo chsh"
+	fi
+	if grep -qF '/usr/bin/zsh' /etc/shells; then
+		exec_cmd "${CHSH} --shell /usr/bin/zsh ${USER}"
+	elif grep -qF '/bin/zsh' /etc/shells; then
+		exec_cmd "${CHSH} --shell /bin/zsh ${USER}"
+	fi
+fi
 
-# TODO Add utility script file
