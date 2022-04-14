@@ -170,8 +170,8 @@ function backup_dotfiles() {
 
 # --no-verbose 关闭长信息，静默执行； --timeout=10 可以设置超时时间; --show-progress 显示进度条, --progress 进度条格式
 # command, 调用并执行命令
-function wget() {
-	command wget --no-verbose --timeout=10 --show-progress --progress=bar:force:noscroll "$@"
+function new_wget() {
+	command wget --no-verbose --timeout=10 -t=10 --no-check-certificate --show-progress --progress=bar:force:noscroll "$@"
 }
 
 # github releases info api
@@ -409,7 +409,7 @@ if have_sudo_access; then
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install fd${RESET}" >&2
 	LATEST_FD_VERSION="$(get_latest_version "sharkdp/fd")"
 	if [[ -n "${LATEST_FD_VERSION}" ]] && ! check_binary fd "${LATEST_FD_VERSION}" && ! check_binary fdfind "${LATEST_FD_VERSION}"; then
-		exec_cmd "wget -t 3 -T 15 -N -P \"${TMP_DIR}\" https://github.com/sharkdp/fd/releases/download/${LATEST_FD_VERSION}/fd_${LATEST_FD_VERSION#v}_amd64.deb"
+		exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://github.com/sharkdp/fd/releases/download/${LATEST_FD_VERSION}/fd_${LATEST_FD_VERSION#v}_amd64.deb"
 		exec_cmd "sudo dpkg -i \"${TMP_DIR}/fd_${LATEST_FD_VERSION#v}_amd64.deb\""
 		exec_cmd "sudo rm -rf \"${TMP_DIR}/fd_${LATEST_FD_VERSION#v}_amd64.deb\""
 		echo -e "${BOLD}${YELLOW}fd installed${RESET}" >&2
@@ -422,7 +422,7 @@ if have_sudo_access; then
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install bat${RESET}" >&2
 	LATEST_BAT_VERSION="$(get_latest_version "sharkdp/bat")"
 	if [[ -n "${LATEST_BAT_VERSION}" ]] && ! check_binary bat "${LATEST_BAT_VERSION}" && ! check_binary batcat "${LATEST_BAT_VERSION}"; then
-		exec_cmd "wget -t 3 -T 15 -N -P \"${TMP_DIR}\" https://github.com/sharkdp/bat/releases/download/${LATEST_BAT_VERSION}/bat_${LATEST_BAT_VERSION#v}_amd64.deb"
+		exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://github.com/sharkdp/bat/releases/download/${LATEST_BAT_VERSION}/bat_${LATEST_BAT_VERSION#v}_amd64.deb"
 		exec_cmd "sudo dpkg -i \"${TMP_DIR}/bat_${LATEST_BAT_VERSION#v}_amd64.deb\""
 		exec_cmd "sudo rm -rf \"${TMP_DIR}/bat_${LATEST_BAT_VERSION#v}_amd64.deb\""
 		echo -e "${BOLD}${YELLOW}bat installed${RESET}" >&2
@@ -435,7 +435,7 @@ if have_sudo_access; then
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install exa${RESET}" >&2
 	LATEST_EXA_VERSION="$(get_latest_version "ogham/exa")"
 	if [[ -n "${LATEST_EXA_VERSION}" ]] && ! check_binary exa "${LATEST_EXA_VERSION}"; then
-		exec_cmd "wget -t 3 -T 15 -N -P \"${TMP_DIR}\" https://github.com/ogham/exa/releases/download/${LATEST_EXA_VERSION}/exa-linux-x86_64-${LATEST_EXA_VERSION}.zip"
+		exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://github.com/ogham/exa/releases/download/${LATEST_EXA_VERSION}/exa-linux-x86_64-${LATEST_EXA_VERSION}.zip"
 		exec_cmd "sudo unzip -q \"${TMP_DIR}/exa-linux-x86_64-${LATEST_EXA_VERSION}.zip\" bin/exa -d /usr/lcoal"
 		exec_cmd "sudo rm -rf \"${TMP_DIR}/exa-linux-x86_64-${LATEST_EXA_VERSION}.zip\""
 		echo -e "${BOLD}${YELLOW}exa installed${RESET}" >&2
@@ -448,7 +448,7 @@ if have_sudo_access; then
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install duf${RESET}" >&2
 	LATEST_DUF_VERSION="$(get_latest_version "muesli/duf")"
 	if [[ -n "${LATEST_DUF_VERSION}" ]] && ! check_binary duf "${LATEST_DUF_VERSION}"; then
-		exec_cmd "wget -t 3 -T 15 -N -P \"${TMP_DIR}\" https://github.com/muesli/duf/releases/download/${LATEST_DUF_VERSION}/duf_${LATEST_DUF_VERSION#v}_linux_amd64.deb"
+		exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://github.com/muesli/duf/releases/download/${LATEST_DUF_VERSION}/duf_${LATEST_DUF_VERSION#v}_linux_amd64.deb"
 		exec_cmd "sudo dpkg -i \"${TMP_DIR}/duf_${LATEST_DUF_VERSION#v}_linux_amd64.deb\""
 		exec_cmd "sudo rm -rf \"${TMP_DIR}/duf_${LATEST_DUF_VERSION#v}_linux_amd64.deb\""
 		echo -e "${BOLD}${YELLOW}duf installed${RESET}" >&2
@@ -521,7 +521,7 @@ if have_sudo_access; then
 			if [[ "${answer}" == [Yy] ]]; then
 				echo -e "${BOLD}${YELLOW}Installing Nvidia CUDA Toolkit 11+ and CUDNN 8.4+${RESET}" >&2
 				echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
-				exec_cmd "wget -t 10 -T 15 -N -P \"${TMP_DIR}\" https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin"
+				exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin"
 				exec_cmd "sudo mv \"${TMP_DIR}/cuda-ubuntu2004.pin\" /etc/apt/preferences.d/cuda-repository-pin-600"
 				exec_cmd 'sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub'
 				exec_cmd 'sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" --yes'
@@ -537,8 +537,108 @@ if have_sudo_access; then
 	fi
 
 	# NOTE python
-	# NOTE Install Anaconda3
+	echo " " >&2
+	echo -e "${BLOD}${UNDERLINE}${CYAN}Install nodejs & npm${RESET}" >&2
+	exec_cmd 'sudo apt-get install python3 python3-pip --yes'
+	echo -e "${BOLD}${YELLOW}gdu & ncdu install success${RESET}" >&2
 
+	# NOTE Install Anaconda3
+	echo " " >&2
+	echo -e "${BLOD}${UNDERLINE}${CYAN}Install CUDA & CUDNN${RESET}" >&2
+	if [ -t 0 ] && [ -t 1 ]; then
+		while true; do
+			read -n 1 -p "$(echo -e "${BOLD}${BLUE}Do you wish to install Anaconda3 ? ${RED}[y/N]: ${RESET}")" answer
+			if [[ -n "${answer}" ]]; then
+				echo
+			else
+				answer="n"
+			fi
+			if [[ "${answer}" == [Yy] ]]; then
+				echo -e "${BOLD}${YELLOW}Installing Anaconda3 ${RESET}" >&2
+				echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
+				exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2021.11-Linux-x86_64.sh"
+				echo -e "${BOLD}${BLUE}For root: recommend /usr/local/anaconda3 For personal: recommend ${HOME}/anaconda3${RESET}"
+				read -p "${BOLD}${YELLOW}Please input anaconda path: ${RESET}" ANACONDA_PATH
+				echo -e "${BOLD}${BLUE}For root: recommend anaconda3 For personal: recommend ${USER}${RESET}"
+				read -p "${BOLD}${YELLOW}Pleae input group name: ${RESET}" GROUP_NAME
+				exec_cmd "sudo sh ${TMP_DIR}/Anaconda3-2021.11-Linux-x86_64.sh -b -p ${ANACONDA_PATH}"
+				if ${SET_MIRRORS}; then
+					cat <<-EOF | sudo tee ${ANACONDA_PATH}/.condarc
+						default_channels:
+						  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+						  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+						  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+						custom_channels:
+						  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+						  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+						  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+						  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+						  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+						  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+						channel_priority: flexible
+
+						ssl_verify: true
+						show_channel_urls: false
+						report_errors: false
+
+						force_reinstall: true
+						create_default_packages:
+						  - pip
+						  - ipython
+						  - numpy
+						  - numba
+						  - matplotlib-base
+						  - pandas
+						  - seaborn
+						  - cython
+						  - rich
+						  - tqdm
+						  - autopep8
+						  - pylint
+						  - black
+						  - flake8
+					EOF
+				else
+					cat <<-EOF | sudo tee ${ANACONDA_PATH}/.condarc
+						channel_priority: flexible
+
+						ssl_verify: true
+						show_channel_urls: false
+						report_errors: false
+
+						force_reinstall: true
+						create_default_packages:
+						  - pip
+						  - ipython
+						  - numpy
+						  - numba
+						  - matplotlib-base
+						  - pandas
+						  - seaborn
+						  - cython
+						  - rich
+						  - tqdm
+						  - autopep8
+						  - pylint
+						  - black
+						  - flake8
+					EOF
+				fi
+				exec_cmd "sudo sh -c \"source ${ANACONDA_PATH}/bin/activate && conda update conda --yes && conda install pip ipython numpy numba matplotlib-base pandas seaborn cython rich tqdm autopep8 pylint black flake8 --yes && conda clean --all --yes\""
+				exec_cmd "sudo grpadd ${GROUP_NAME}"
+				exec_cmd "sudo chgrp ${GROUP_NAME} -R ${ANACONDA_PATH}"
+				exec_cmd "sudo chmod 2770 -R ${ANACONDA_PATH}"
+				exec_cmd "sudo chmod g-w ${ANACONDA_PATH}/envs"
+				exec_cmd "sudo sh -c \"source ${ANACONDA_PATH}/bin/activate && conda create -n share python=3.9 --yes && conda activate share && conda install rich --yes\""
+				exec_cmd "sudo chmod 554 -R ${ANACONDA_PATH}/pkgs/cache"
+				echo -e "${BOLD}${YELLOW}Anaconda3 install succes${RESET}" >&2
+				break
+			elif [[ "${answer}" == [Nn] ]]; then
+				echo -e "${BOLD}${RED}Anaconda3 will not be installed${RESET}" >&2
+				break
+			fi
+		done
+	fi
 	# * nodejs & npm
 	echo " " >&2
 	echo -e "${BLOD}${UNDERLINE}${CYAN}Install nodejs & npm${RESET}" >&2
@@ -564,7 +664,7 @@ if have_sudo_access; then
 			if [[ "${answer}" == [Yy] ]]; then
 				echo -e "${BOLD}${YELLOW}Installing frpc${RESET}" >&2
 				echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
-				exec_cmd "wget -t 10 -T 15 -N -P \"${TMP_DIR}\" https://raw.githubusercontent.com/stilleshan/frpc/master/frpc_linux_install.sh"
+				exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://raw.githubusercontent.com/stilleshan/frpc/master/frpc_linux_install.sh"
 				exec_cmd "chmod +x \"${TMP_DIR}/frpc_linux_install.sh\""
 				exec_cmd "sudo /usr/bin/bash \"${TMP_DIR}/frpc_linux_install.sh\""
 				echo -e "${BOLD}${YELLOW}frpc installed${RESET}" >&2
@@ -576,7 +676,7 @@ if have_sudo_access; then
 		done
 	fi
 
-	# TODO install BIT-LOGIN
+	# NOTE install BIT-LOGIN
 	echo " " >&2
 	echo -e "${BLOD}${UNDERLINE}${CYAN}Install BIT-LOGIN${RESET}" >&2
 	if [ -t 0 ] && [ -t 1 ]; then
@@ -590,7 +690,56 @@ if have_sudo_access; then
 			if [[ "${answer}" == [Yy] ]]; then
 				echo -e "${BOLD}${YELLOW}Installing BIT-login ${RESET}" >&2
 				echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
-				# TODO
+				LATEST_LOGIN_VERSION=$(get_latest_version Mmx233/BitSrunLoginGo)
+				exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://github.com/Mmx233/BitSrunLoginGo/releases/download/${LATEST_LOGIN_VERSION}/autoLogin_linux_amd64.zip"
+				exec_cmd "sudo unzip -o \"${TMP_DIR}/autoLogin_linux_amd64.zip\" -d /usr/local/autologin"
+				exec_cmd "sudo chmod +x /usr/local/autologin/autoLogin"
+				read -p "${BLOD}${RED}Please input your BIT username: ${RESET}" USERNAME
+				read -p "${BLOD}${RED}Please input your BIT password: ${RESEST}" PASSWORD
+				cat <<-EOF | sudo tee /usr/local/autologin/Config.yaml
+				form:
+				  domain: "10.0.0.55"
+				  username: "${USERNAME}"
+				  usertype: ""
+				  password: "${PASSWORD}"
+				meta:
+				  "n": "200"
+				  type: "1"
+				  acid: "5"
+				  enc: srun_bx1
+				settings:
+				  basic:
+				    https: false
+				    skip_cert_verify: false
+				    timeout: 5
+				    interfaces: ""
+				  guardian:
+				    enable: true
+				    duration: 300
+				  daemon:
+				    enable: true
+				    path: /usr/local/autologin/autoLogin
+				  debug:
+				    enable: false
+				    write_log: false
+				    log_path: ./
+				EOF
+				cat <<-EOF | sudo tee /etc/systemd/system/autoLogin.service
+				[Unit]
+				Description=login service
+				After=network.target
+
+				[Service]
+				Type=simple
+				User=root
+				ExecStart=/usr/local/autologin/autoLogin
+				Restart=always # or always, on-abort, etc
+
+				[Install]
+				WantedBy=multi-user.target
+				EOF
+				exec_cmd "sudo systemctl enable --now autoLogin.service"
+				echo -e "${BOLD}${YELLOW}BIT-Login install success${RESET}" >&2
 				break
 			elif [[ "${answer}" == [Nn] ]]; then
 				echo -e "${BOLD}${RED}BIT-Login will not be installed${RESET}" >&2
