@@ -293,6 +293,12 @@ if have_sudo_access; then
 
 	# NOTE install packages
 
+	# * APT tools
+	echo " " >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Install APT tools${RESET}" >&2
+	exec_cmd 'sudo apt-get install software-properties-common, apt-transport-https --yes'
+	echo -e "${BOLD}${YELLOW}Install APT tools success${RESET}" >&2
+
 	# * Add PPA
 	echo " " >&2
 	echo -e "${BOLD}${BLUE}Add PPA:${RESET}" >&2
@@ -311,11 +317,11 @@ if have_sudo_access; then
 	exec_cmd 'sudo apt-get upgrade --yes'
 	echo -e "${BOLD}${YELLOW}Update && Upgrade Packages success${RESET}" >&2
 
-	# * APT tools
+	# * fetch tools
 	echo " " >&2
-	echo -e "${BOLD}${UNDERLINE}${CYAN}Install APT tools${RESET}" >&2
-	exec_cmd 'sudo apt-get install software-properties-common, apt-transport-https --yes'
-	echo -e "${BOLD}${YELLOW}Install APT tools success${RESET}" >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Install fetch tools${RESET}" >&2
+	exec_cmd 'sudo apt-get install screenfetch ne0fetch --yes'
+	echo -e "${BOLD}${YELLOW}Install fetch tools success${RESET}" >&2
 
 	# * shell
 	echo " " >&2
@@ -806,4 +812,3 @@ if [[ "$(basename "${SHELL}")" != "zsh" ]]; then
 		exec_cmd "${CHSH} --shell /bin/zsh ${USER}"
 	fi
 fi
-
