@@ -114,7 +114,44 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 if [[ -x "${SCRIPT_DIR}/begin_${OS_NAME}.sh" && "$(basename "$0")" == "begin.sh" ]]; then
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Run existing script ${GREEN}\"${SCRIPT_DIR}/begin_${OS_NAME}.sh\"${UNDERLINEOFF}${RESET}" >&2
 	echo " " >&2
-	/usr/bin/bash "${SCRIPT_DIR}/begin_${OS_NAME}.sh"
+	if [ -t 0 ] && [ -t 1 ]; then
+		while true; do
+			read -n 1 -p "$(echo -e "${BOLD}${BLUE}Do you wish to configure ${OS_NAME}? ${RED}[y/N]: ${RESET}")" answer
+			if [[ -n "${answer}" ]]; then
+				echo
+			else
+				echo
+			fi
+			if [[ "${answer}" == [Yy] ]]; then
+				echo -e "${BOLD}${YELLOW}Begin configure ${OS_NAME}${RESET}" >&2
+				/usr/bin/bash "${SCRIPT_DIR}/begin_${OS_NAME}.sh"
+				break
+			elif [[ "${answer}" == [Nn] ]]; then
+				echo -e "${BOLD}${RED}will not configure ${OS_NAME}${RESET}" >&2
+				break
+			fi
+		done
+	fi
+
+	if [ -t 0 ] && [ -t 1 ]; then
+		while true; do
+			read -n 1 -p "$(echo -e "${BOLD}${BLUE}Do you wish to configure dotfiles? ${RED}[y/N]: ${RESET}")" answer
+			if [[ -n "${answer}" ]]; then
+				echo
+			else
+				echo
+			fi
+			if [[ "${answer}" == [Yy] ]]; then
+				echo -e "${BOLD}${YELLOW}Begin configure dotfiles${RESET}" >&2
+				/usr/bin/bash "${SCRIPT_DIR}/begin_${OS_NAME}_dotfiles.sh"
+				break
+			elif [[ "${answer}" == [Nn] ]]; then
+				echo -e "${BOLD}${RED}will not configure dotfiles${RESET}" >&2
+				break
+			fi
+		done
+	fi
+
 	# 退出脚本
 	exit $?
 fi
