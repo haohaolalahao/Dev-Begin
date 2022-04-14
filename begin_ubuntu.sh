@@ -34,8 +34,8 @@ ln -sfn "${DATETIME}" "${HOME}/.dotfiles/backups/latest"
 chmod 755 "${HOME}/.dotfiles"
 
 # * Set temporary directory
-# TMP_DIR="$(mktemp -d -t dev-begin.XXXXXX)"
-TMP_DIR="${HOME}/.tmp/dev-begin/"
+TMP_DIR="$(mktemp -d -t dev-begin.XXXXXX)"
+#TMP_DIR="${HOME}/.tmp/dev-begin/"
 
 if [[ ! -d "${TMP_DIR}" ]]; then
 	mkdir "${TMP_DIR}"

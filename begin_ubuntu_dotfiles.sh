@@ -1,5 +1,7 @@
 #! /usr/bin/bash
 
+# sudo ln -s /lib/x86_64-linux-gnu/libtic.so.6.2 /lib/x86_64-linux-gnu/libtinfow.so.6
+
 # Reset
 RESET="\033[0m"
 
