@@ -700,8 +700,8 @@ if have_sudo_access; then
 				exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://github.com/Mmx233/BitSrunLoginGo/releases/download/${LATEST_LOGIN_VERSION}/autoLogin_linux_amd64.zip"
 				exec_cmd "sudo unzip -o \"${TMP_DIR}/autoLogin_linux_amd64.zip\" -d /usr/local/autologin"
 				exec_cmd "sudo chmod +x /usr/local/autologin/autoLogin"
-				read -p "$(${BLOD}${RED}Please input your BIT username: ${RESET})" USERNAME
-				read -p "$(${BLOD}${RED}Please input your BIT password: ${RESEST})" PASSWORD
+				read -p "$(echo -e ${BLOD}${RED}Please input your BIT username: ${RESET})" USERNAME
+				read -p "$(echo -e ${BLOD}${RED}Please input your BIT password: ${RESEST})" PASSWORD
 				cat <<-EOF | sudo tee /usr/local/autologin/Config.yaml
 				form:
 				  domain: "10.0.0.55"
