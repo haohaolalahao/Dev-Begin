@@ -239,6 +239,7 @@ if [ -t 0 ] && [ -t 1 ]; then
 			fi
 			exec_cmd "curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh"
 			exec_cmd "cp ${HOME}/.dotfiles/.zshrc ${HOME}/"
+            exec_cmd "mkdir ${HOME}/.config"
 			exec_cmd "cp -f ${HOME}/.dotfiles/starship.toml ${HOME}/.config/"
 			break
 		elif [[ "${answer}" == [Nn] ]]; then
