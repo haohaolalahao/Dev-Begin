@@ -631,7 +631,8 @@ if have_sudo_access; then
 					EOF
 				fi
 				exec_cmd "sudo su -c \"source ${ANACONDA_PATH}/bin/activate && conda update conda --yes && conda install pip ipython numpy numba matplotlib-base pandas seaborn cython rich tqdm autopep8 pylint black flake8 --yes && conda clean --all --yes\""
-				exec_cmd "sudo grpadd ${GROUP_NAME}"
+				exec_cmd "sudo groupadd ${GROUP_NAME}"
+                                exec_cmd "sudo usermod -aG ${GROUP_NAME} ${USER}"
 				exec_cmd "sudo chgrp ${GROUP_NAME} -R ${ANACONDA_PATH}"
 				exec_cmd "sudo chmod 2770 -R ${ANACONDA_PATH}"
 				exec_cmd "sudo chmod g-w ${ANACONDA_PATH}/envs"
