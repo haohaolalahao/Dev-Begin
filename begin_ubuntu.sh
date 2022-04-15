@@ -293,6 +293,13 @@ if have_sudo_access; then
 
 	# NOTE install packages
 
+	# * Update && Upgrade
+	echo " " >&2
+	echo -e "${BOLD}${UNDERLINE}${CYAN}Update && Upgrade Packages${RESET}" >&2
+	exec_cmd 'sudo apt-get update --yes'
+	exec_cmd 'sudo apt-get upgrade --yes'
+	echo -e "${BOLD}${YELLOW}Update && Upgrade Packages success${RESET}" >&2
+	
 	# * APT tools
 	echo " " >&2
 	echo -e "${BOLD}${UNDERLINE}${CYAN}Install APT tools${RESET}" >&2
@@ -309,13 +316,6 @@ if have_sudo_access; then
 	exec_cmd 'sudo add-apt-repository ppa:neovim-ppa/unstable --yes'
 	echo -e "${BOLD}${YELLOW}Add neovim PPA success${RESET}" >&2
 	# vscode
-
-	# * Update && Upgrade
-	echo " " >&2
-	echo -e "${BOLD}${UNDERLINE}${CYAN}Update && Upgrade Packages${RESET}" >&2
-	exec_cmd 'sudo apt-get update --yes'
-	exec_cmd 'sudo apt-get upgrade --yes'
-	echo -e "${BOLD}${YELLOW}Update && Upgrade Packages success${RESET}" >&2
 
 	# * fetch tools
 	echo " " >&2
@@ -498,7 +498,7 @@ if have_sudo_access; then
 						if [[ "${array[@]/${var}/}" != "${array[@]}" ]]; then
 							echo -e "${BLOD}${YELLOW}Your choose driver is: $var${RESET}" >&2
 							echo -e "${BOLD}${BLUE}Begin install${RESET}" >&2
-							exec_cmd "sudo apt install ${var}"
+							exec_cmd "sudo apt install ${var} --yes"
 							break
 						else
 							echo -e "${BLOD}${RED}Your choose is not exist!${RESET}" >&2
@@ -631,7 +631,7 @@ if have_sudo_access; then
 					EOF
 				fi
 				exec_cmd "sudo su -c \"source ${ANACONDA_PATH}/bin/activate && conda update conda --yes && conda install pip ipython numpy numba matplotlib-base pandas seaborn cython rich tqdm autopep8 pylint black flake8 --yes && conda clean --all --yes\""
-				exec_cmd "sudo newgrp ${GROUP_NAME}"
+				exec_cmd "sudo grpadd ${GROUP_NAME}"
 				exec_cmd "sudo chgrp ${GROUP_NAME} -R ${ANACONDA_PATH}"
 				exec_cmd "sudo chmod 2770 -R ${ANACONDA_PATH}"
 				exec_cmd "sudo chmod g-w ${ANACONDA_PATH}/envs"
