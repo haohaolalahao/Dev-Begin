@@ -442,7 +442,7 @@ if have_sudo_access; then
 	LATEST_EXA_VERSION="$(get_latest_version "ogham/exa")"
 	if [[ -n "${LATEST_EXA_VERSION}" ]] && ! check_binary exa "${LATEST_EXA_VERSION}"; then
 		exec_cmd "new_wget -N -P \"${TMP_DIR}\" https://github.com/ogham/exa/releases/download/${LATEST_EXA_VERSION}/exa-linux-x86_64-${LATEST_EXA_VERSION}.zip"
-		exec_cmd "sudo unzip -q \"${TMP_DIR}/exa-linux-x86_64-${LATEST_EXA_VERSION}.zip\" bin/exa -d /usr/lcoal"
+		exec_cmd "sudo unzip -q \"${TMP_DIR}/exa-linux-x86_64-${LATEST_EXA_VERSION}.zip\" bin/exa -d /usr/local"
 		exec_cmd "sudo rm -rf \"${TMP_DIR}/exa-linux-x86_64-${LATEST_EXA_VERSION}.zip\""
 		echo -e "${BOLD}${YELLOW}exa installed${RESET}" >&2
 	else
