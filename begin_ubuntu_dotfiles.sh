@@ -282,7 +282,9 @@ if [ -t 0 ] && [ -t 1 ]; then
 		fi
 		if [[ "${answer}" == [Yy] ]]; then
 			echo -e "${BOLD}${YELLOW}Begin configure neovim${RESET}" >&2
-
+			
+			exec_cmd "git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim"
 			exec_cmd "cp -rf ${HOME}/.dotfiles/nvim ${HOME}/.config/"
 
 			break
